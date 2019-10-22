@@ -63,8 +63,34 @@ class ProductsProvider extends Component {
                 cart
             })
         });
-
     }
+
+    deleteFromCart = (id) => {
+        let productsListTemp = [...this.state.products];
+        productsListTemp[id - 1].count = 0;
+        productsListTemp[id - 1].total = 0;
+        productsListTemp[id - 1].inCart = false;
+
+        //Find the product to be deleted in the cart
+        let productsInCartTemp = [...this.state.cart];
+
+        productsInCartTemp = productsInCartTemp.filter(item => {
+            if (item.id !== id) {
+                return item;
+            }
+        });
+
+        console.log("after", productsInCartTemp);
+
+        //update the state
+        this.setState(state => {
+            return {
+                products: productsListTemp,
+                cart: productsInCartTemp
+            }
+        });
+    }
+
 
     openModal = (id) => {
         let productInModal = this.getProduct(id);
@@ -100,17 +126,21 @@ class ProductsProvider extends Component {
             productsListTemp[id - 1].count -= 1;
             productsListTemp[id - 1].total = productsListTemp[id - 1].price * productsListTemp[id - 1].count;
 
+            if (productsListTemp[id - 1].count === 0) {
+                productsListTemp[id - 1].inCart = false;
+                this.deleteFromCart(id);
+            }
+
             //update the state
             this.setState(state => {
                 return {
                     products: productsListTemp
                 }
             });
-        } else {
-            console.log("alreayd zero");
         }
-
     }
+
+
 
     render() {
         return (
@@ -121,7 +151,8 @@ class ProductsProvider extends Component {
                 openModal: this.openModal,
                 closeModal: this.closeModal,
                 increment: this.increment,
-                decrement: this.decrement
+                decrement: this.decrement,
+                deleteFromCart: this.deleteFromCart
             }}>
                 {this.props.children}
             </ProductContext.Provider>

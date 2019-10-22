@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 export default function ItemInCart(props) {
     const { id, img, title, price, count, total } = props.product;
-    const { increment, decrement } = props.value;
+    const { increment, decrement, deleteFromCart } = props.value;
 
     return (
         <ProductListRow>
@@ -25,12 +25,14 @@ export default function ItemInCart(props) {
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h5><button onClick={() => decrement(id)} className="px-2 m-1" disabled={count > 0 ? false : true}>-</button>{count}<button onClick={() => increment(id)} className="px-2 m-1">+</button></h5>
+                            <button onClick={() => decrement(id)} className="px-2 m-1" disabled={count > 0 ? false : true}>-</button>
+                            {count}
+                            <button onClick={() => increment(id)} className="px-2 m-1">+</button>
                         </div>
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h5>Remove</h5>
+                            <h5><i className="fa fa-trash" aria-hidden="true" onClick={() => deleteFromCart(id)}></i></h5>
                         </div>
                     </div>
                     <div className="col-lg-2">
@@ -50,5 +52,6 @@ const ProductListRow = styled.div`
     }
     .cell {
         padding: 20px 10px;
+        text-align: center;
     }
 `
