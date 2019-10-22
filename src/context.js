@@ -80,8 +80,6 @@ class ProductsProvider extends Component {
             }
         });
 
-        console.log("after", productsInCartTemp);
-
         //update the state
         this.setState(state => {
             return {
@@ -89,6 +87,29 @@ class ProductsProvider extends Component {
                 cart: productsInCartTemp
             }
         });
+    }
+
+    clearCart = () => {
+        //Empty the cart array
+        let cartTemp = [...this.state.cart];
+        cartTemp = [];
+
+        //Update all products to be out of cart
+        let productsTemp = [...this.state.products];
+        productsTemp = productsTemp.map(item => {
+            item.inCart = false
+            item.count = 0;
+            item.total = 0;
+            return item;
+        });
+
+        //Update the state
+        this.setState(state => {
+            return {
+                products: productsTemp,
+                cart: cartTemp
+            }
+        })
     }
 
 
@@ -152,7 +173,8 @@ class ProductsProvider extends Component {
                 closeModal: this.closeModal,
                 increment: this.increment,
                 decrement: this.decrement,
-                deleteFromCart: this.deleteFromCart
+                deleteFromCart: this.deleteFromCart,
+                clearCart: this.clearCart
             }}>
                 {this.props.children}
             </ProductContext.Provider>
