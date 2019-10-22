@@ -15,27 +15,27 @@ export default function ItemInCart(props) {
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h3>{title}</h3>
+                            <h5>{title}</h5>
                         </div>
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h3>{price}</h3>
+                            <h5>{price}</h5>
                         </div>
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h3><button onClick={() => decrement(id)} className="px-2 m-1" disabled={count > 0 ? false : true}>-</button>{count}<button onClick={() => increment(id)} className="px-2 m-1">+</button></h3>
+                            <h5><button onClick={() => decrement(id)} className="px-2 m-1" disabled={count > 0 ? false : true}>-</button>{count}<button onClick={() => increment(id)} className="px-2 m-1">+</button></h5>
                         </div>
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h3>Remove</h3>
+                            <h5>Remove</h5>
                         </div>
                     </div>
                     <div className="col-lg-2">
                         <div className="cell">
-                            <h3>{total}</h3>
+                            <h5>{total}</h5>
                         </div>
                     </div>
                 </div>
